@@ -25,7 +25,7 @@ export default {
   },
   computed: {
     getItems() {
-      return this.type.items.slice(0, 5);
+      return this.type.items;
     },
   },
 };

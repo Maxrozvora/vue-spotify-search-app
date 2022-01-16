@@ -37,7 +37,7 @@ const actions = {
         params: {
           q: getters.searchTerm,
           type: query.type,
-          offset: query.offset || 0,
+          limit: 5,
         },
         paramsSerializer: (params) => {
           return qs.stringify(params, { indices: false });

@@ -59,7 +59,7 @@ export default {
   components: { SearchType },
   data: () => ({
     searchTerm: "",
-    maxResult: 10,
+    maxResult: 5,
     filters: ["artist", "track", "album"],
   }),
   computed: {
@@ -67,7 +67,7 @@ export default {
     results() {
       const results = this.searchResults;
       return Object.keys(results)
-        .filter((type) => results[type].items.length > 0)
+        .filter((type) => results[type].items?.length > 0)
         .map((type) => ({ type, items: results[type].items }));
     },
     noResults() {
