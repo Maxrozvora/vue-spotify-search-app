@@ -48,7 +48,6 @@ export default {
     const route = this.$route;
 
     if (route.hash) {
-      debugger;
       await this.onSuccessAuth(route.hash);
       router.push({ path: "/search" }).catch(() => {});
     } else {

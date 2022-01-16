@@ -34,7 +34,6 @@ const mutations = {
     state.status = ERROR;
   },
   logout(state) {
-    debugger;
     state.status = "";
     state.token = "";
     state.tokenExpirationTime = "";
