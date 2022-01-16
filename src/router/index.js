@@ -1,5 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import store from "@/store";
+import Login from "@/views/Login";
+import Search from "@/views/Search";
 
 Vue.use(VueRouter);
 
@@ -11,15 +14,33 @@ const routes = [
   {
     path: "/login",
     name: "login",
+    component: Login,
   },
   {
     path: "/search",
     name: "search",
+    component: Search,
+    meta: {
+      requiresAuth: true,
+    },
   },
 ];
 
 const router = new VueRouter({
+  mode: "history",
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (store.getters.isAuthenticated) {
+      next();
+      return;
+    }
+    next({ name: "login" });
+  } else {
+    next();
+  }
 });
 
 export default router;
