@@ -11,10 +11,11 @@ import {
   APP_CLIENT_ID,
   APP_REDIRECT_URI,
 } from "@/utils/variables";
+import router from "@/router";
 
 const state = {
   token: localStorage.getItem("access-token") || "",
-  tokenExpiredTime: localStorage.getItem("tokenExpiredTime") || "",
+  tokenExpirationTime: localStorage.getItem("tokenExpirationTime") || "",
   status: "",
 };
 const mutations = {
@@ -33,10 +34,11 @@ const mutations = {
     state.status = ERROR;
   },
   logout(state) {
+    debugger;
     state.status = "";
     state.token = "";
     state.tokenExpirationTime = "";
-    localStorage.removeItem("spotify-access-token");
+    localStorage.removeItem("access-token");
     localStorage.removeItem("tokenExpirationTime");
     removeAuthHeader(this._vm.$http);
   },
@@ -52,7 +54,7 @@ const actions = {
         if (error.response.status === 401) {
           console.error("Token expired!");
           this.logout();
-          this._vm.router.push({ name: "login" });
+          router.push({ name: "login" });
           throw error;
         } else {
           return Promise.reject(error);
@@ -88,7 +90,7 @@ const actions = {
 const getters = {
   token: (state) => state.token,
   isAuthenticated: (state) =>
-    !!state.token && isTokenExpired(state.tokenExpirationTime),
+    !!state.token && !isTokenExpired(state.tokenExpirationTime),
   authStatus: (state) => state.status,
   hasTokenExpired: (state) =>
     !state.tokenExpirationTime || isTokenExpired(state.tokenExpirationTime),
