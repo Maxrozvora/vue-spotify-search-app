@@ -1,5 +1,7 @@
 # vue-spotify-search
 
+Simple app with signIn and search on spotify api
+
 ## Project setup
 ```
 npm install
