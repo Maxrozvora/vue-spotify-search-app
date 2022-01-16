@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import store from "@/store";
 import Login from "@/views/Login";
 import Search from "@/views/Search";
+import Redirect from "@/views/Redirect";
 
 Vue.use(VueRouter);
 
@@ -24,6 +25,11 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/redirect",
+    name: "redirect",
+    component: Redirect,
+  },
 ];
 
 const router = new VueRouter({
@@ -33,6 +39,7 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
+    debugger;
     if (store.getters.isAuthenticated) {
       next();
       return;

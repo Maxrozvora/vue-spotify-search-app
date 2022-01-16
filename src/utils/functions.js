@@ -29,8 +29,10 @@ export const removeAuthHeader = (axiosInstance) => {
   }
 };
 
-export const getExpirationTime = (expires_in) =>
-  new Date().getTime() + parseInt(expires_in) * 1000;
+export const getExpirationTime = (expires_in) => {
+  return new Date().getTime() + parseInt(expires_in) * 1000;
+};
 
-export const isTokenExpired = (tokenExpirationTime) =>
-  new Date().getTime() > tokenExpirationTime;
+export const isTokenExpired = (tokenExpirationTime) => {
+  return new Date().getTime() > tokenExpirationTime;
+};
